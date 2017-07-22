@@ -19,7 +19,7 @@ return (
     <div>
       <h1>Welcome to React Quiz App</h1>
       {this.state.isTestStarted?<QuestionView questionsList={questionsList} qObj={questionsList[0]}></QuestionView>
-         :<h1><button onClick={testStartSelected.bind(this)}>Start Test</button></h1>}
+         :<h1><button type="button" className="btn btn-primary btn-xs"  onClick={testStartSelected.bind(this)}>Start Test</button></h1>}
 
     </div>
 

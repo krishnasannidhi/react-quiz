@@ -2,6 +2,18 @@ module.exports=function(grunt){
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    less:{
+      development:{
+        options:{
+          compress:true
+        },
+        files:[{'dist/<%=pkg.name %>.css':['public/**/*.less']}]
+      }
+    },
+    watch:{
+      files:['public/**/*.js','public/**/*.jsx','public/**/*.less'],
+      tasks:['browserify','less']
+    },
     browserify:{
       dist:{
         options:{
@@ -20,8 +32,9 @@ module.exports=function(grunt){
     }
   })
 
+  grunt.loadNpmTasks('grunt-contrib-less')
   grunt.loadNpmTasks('grunt-browserify')
-
+  grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.registerTask('default',['build'])
-  grunt.registerTask('build',['browserify'])
+  grunt.registerTask('build',['browserify','less','watch'])
 }
