@@ -4,7 +4,7 @@ const OptionsView=require('./OptionsView')
 const QuestionView= React.createClass({
   getInitialState(){
     return {
-     currentQuestion: this.props.qObj
+     currentQuestion: this.props.qObj,
     }
   },
  render(){
@@ -47,11 +47,15 @@ function setChecked(e){
           item.checked=e.currentTarget.checked
       else if(!this.state.currentQuestion.ischeckBox)
           item.checked=false
-              
-    // (item.value==e.currentTarget.value && e.currentTarget.checked)?
-    //                 item.checked=true:
-    //                 (this.state.currentQuestion.ischeckBox?'':item.checked=false)
-                  })
+    })
+    let isAnswered=this.state.currentQuestion.options.filter((item)=>{
+      return item.checked
+    })
+    if(isAnswered.length){
+      this.state.currentQuestion.isAnswered=true
+    }else{
+      this.state.currentQuestion.isAnswered=false
+    }
   this.setState({currentQuestion:this.state.currentQuestion})
 }
 
