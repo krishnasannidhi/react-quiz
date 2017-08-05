@@ -1,5 +1,5 @@
 # react-quiz
-App implemented using ReactJS, NodeJS, ExpressJS, GruntJS, Bootstrap CSS, Less 
+App implemented using ReactJS, NodeJS, ExpressJS, GruntJS, Bootstrap CSS, Less
 
 Installation and run:
 
