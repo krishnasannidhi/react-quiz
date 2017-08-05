@@ -27,8 +27,8 @@ const QuestionView= React.createClass({
           <div className="panel-body col-xs-12">
              <div className="panel-heading col-xs-12">{this.state.currentQuestion.qText}{this.state.currentQuestion.qMark?' ? ':''}</div>
              <div className="col-xs-12">
-                 {this.state.currentQuestion.options.map((d)=>{
-                   return <OptionsView data={d}></OptionsView>
+                 {this.state.currentQuestion.options.map((d,i)=>{
+                   return <OptionsView index={i} data={d} currQuest={this.state.currentQuestion} setChecked={setChecked.bind(this)}></OptionsView>
                  })}
              </div>
            </div>
@@ -38,6 +38,22 @@ const QuestionView= React.createClass({
     )
  }
 })
+
+
+function setChecked(e){
+  console.info('setChecked event QuestionView',e.currentTarget.value)
+  this.state.currentQuestion.options.forEach((item)=>{
+      if(item.value==e.currentTarget.value)
+          item.checked=e.currentTarget.checked
+      else if(!this.state.currentQuestion.ischeckBox)
+          item.checked=false
+              
+    // (item.value==e.currentTarget.value && e.currentTarget.checked)?
+    //                 item.checked=true:
+    //                 (this.state.currentQuestion.ischeckBox?'':item.checked=false)
+                  })
+  this.setState({currentQuestion:this.state.currentQuestion})
+}
 
 function selectItem(flag){
 var index=flag?(Number(this.state.currentQuestion.id)):(Number(this.state.currentQuestion.id)-2)
