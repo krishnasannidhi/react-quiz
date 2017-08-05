@@ -2,6 +2,7 @@ const React=require('react');
 const ReactDOM=require('react-dom')
 const QuestionView=require('./QuestionView')
 const d3=require('d3')
+const _=require('lodash')
 
 const MainApp= React.createClass({
 /*componentDidMount(){
@@ -33,9 +34,9 @@ getInitialState(){
       incorrectCount:0,
     },
     questionsList:[
-      {id:'1',qText:'is React MVC framework',qMark:true,options:[{value:"True",checked:false},{value:"False",checked:false}],ischeckBox:false},
-      {id:'2',qText:'is props mutable',qMark:true,options:[{value:"True",checked:false},{value:"False",checked:false}],ischeckBox:true},
-      {id:'3',qText:'is state mutable',qMark:true,options:[{value:"True",checked:false},{value:"False",checked:false}],ischeckBox:false},
+      {id:'1',qText:'is React MVC framework',qMark:true,options:[{value:"True",checked:false},{value:"False",checked:false}],ischeckBox:false,answer:[{value:"True",checked:false},{value:"False",checked:true}]},
+      {id:'2',qText:'is props mutable',qMark:true,options:[{value:"True",checked:false},{value:"False",checked:false}],ischeckBox:false,answer:[{value:"True",checked:false},{value:"False",checked:true}]},
+      {id:'3',qText:'is state mutable',qMark:true,options:[{value:"True",checked:false},{value:"False",checked:false}],ischeckBox:false,answer:[{value:"True",checked:true},{value:"False",checked:false}]},
 
     ]
   }
@@ -84,6 +85,13 @@ function submitQuiz(){
     return item.isAnswered
   }).length;
   this.state.results.unAnsweredCount=this.state.questionsList.length-this.state.results.answeredCount;
+  this.state.questionsList.forEach((item)=>{
+    if(_.isEqual(item.options,item.answer)){
+      this.state.results.correctCount++
+    }else{
+      this.state.results.incorrectCount++
+    }
+  })
   this.setState({results:this.state.results})
   d3.select(".submit-btn")
     .on("click",null)
